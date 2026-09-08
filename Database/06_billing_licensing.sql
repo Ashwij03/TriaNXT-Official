@@ -1,0 +1,54 @@
+BEGIN;
+CREATE TABLE IF NOT EXISTS billing_plantier (
+ id BIGSERIAL PRIMARY KEY, name VARCHAR(100) NOT NULL UNIQUE, price NUMERIC(10,2) NOT NULL DEFAULT 0,
+ max_studies INTEGER, max_users INTEGER, storage_limit_gb INTEGER, features TEXT NOT NULL DEFAULT '[]',
+ is_default BOOLEAN NOT NULL DEFAULT FALSE, is_active BOOLEAN NOT NULL DEFAULT TRUE,
+ created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE UNIQUE INDEX IF NOT EXISTS single_default_plan_tier ON billing_plantier(is_default) WHERE is_default;
+CREATE TABLE IF NOT EXISTS billing_subscription (
+ id BIGSERIAL PRIMARY KEY, status VARCHAR(20) NOT NULL DEFAULT 'PENDING_PAYMENT', start_date DATE, end_date DATE,
+ auto_renewal BOOLEAN NOT NULL DEFAULT TRUE, notes TEXT NOT NULL DEFAULT '', max_studies_override INTEGER, max_users_override INTEGER,
+ storage_limit_gb_override INTEGER, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ organization_id BIGINT NOT NULL UNIQUE REFERENCES organizations_organization(id) ON DELETE CASCADE, plan_id BIGINT NOT NULL REFERENCES billing_plantier(id)
+);
+CREATE TABLE IF NOT EXISTS billing_subscriptionevent (
+ id BIGSERIAL PRIMARY KEY, event_type VARCHAR(32) NOT NULL, metadata TEXT NOT NULL DEFAULT '{}', created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ subscription_id BIGINT NOT NULL REFERENCES billing_subscription(id) ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS billing_paymenttransaction (
+ id BIGSERIAL PRIMARY KEY, gateway VARCHAR(20) NOT NULL DEFAULT 'razorpay', gateway_order_id VARCHAR(64) UNIQUE,
+ gateway_payment_id VARCHAR(64), gateway_signature VARCHAR(512), amount NUMERIC(10,2) NOT NULL, currency VARCHAR(3) NOT NULL DEFAULT 'INR',
+ status VARCHAR(16) NOT NULL DEFAULT 'CREATED', raw_webhook_payload TEXT, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, subscription_id BIGINT NOT NULL REFERENCES billing_subscription(id) ON DELETE CASCADE,
+ plan_id BIGINT NOT NULL REFERENCES billing_plantier(id)
+);
+CREATE TABLE IF NOT EXISTS subscriptions_plan (
+ id BIGSERIAL PRIMARY KEY, name VARCHAR(100) NOT NULL UNIQUE, price NUMERIC(10,2) NOT NULL DEFAULT 0, max_studies INTEGER NOT NULL,
+ max_users INTEGER NOT NULL, storage_limit_gb INTEGER NOT NULL, is_active BOOLEAN NOT NULL DEFAULT TRUE,
+ created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS subscriptions_subscription (
+ id BIGSERIAL PRIMARY KEY, status VARCHAR(20) NOT NULL DEFAULT 'Active', start_date DATE NOT NULL, end_date DATE NOT NULL,
+ auto_renewal BOOLEAN NOT NULL DEFAULT TRUE, notes TEXT NOT NULL DEFAULT '', updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ organization_id BIGINT NOT NULL UNIQUE REFERENCES organizations_organization(id) ON DELETE CASCADE, plan_id BIGINT NOT NULL REFERENCES subscriptions_plan(id)
+);
+CREATE TABLE IF NOT EXISTS licensing_referralcode (
+ id BIGSERIAL PRIMARY KEY, code VARCHAR(32) NOT NULL UNIQUE, redemption_count INTEGER NOT NULL DEFAULT 0, active BOOLEAN NOT NULL DEFAULT TRUE,
+ created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, user_id BIGINT NOT NULL UNIQUE REFERENCES accounts_user(id) ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS licensing_referralusage (
+ id BIGSERIAL PRIMARY KEY, redeemed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, referee_days_granted INTEGER NOT NULL DEFAULT 15,
+ referrer_days_granted INTEGER NOT NULL DEFAULT 0, referee_license_start_date TIMESTAMP NOT NULL, referee_license_end_date TIMESTAMP NOT NULL,
+ referee_id BIGINT NOT NULL UNIQUE REFERENCES accounts_user(id) ON DELETE CASCADE, referrer_id BIGINT NOT NULL REFERENCES accounts_user(id) ON DELETE CASCADE,
+ code_id BIGINT NOT NULL REFERENCES licensing_referralcode(id) ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS licensing_licenseentitlement (
+ id BIGSERIAL PRIMARY KEY, subscription_end_date TIMESTAMP, referral_extension_end_date TIMESTAMP, referral_extension_days_total INTEGER NOT NULL DEFAULT 0,
+ last_checked_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, user_id BIGINT NOT NULL UNIQUE REFERENCES accounts_user(id) ON DELETE CASCADE,
+ referral_extension_source_id BIGINT REFERENCES licensing_referralusage(id) ON DELETE SET NULL
+);
+CREATE TABLE IF NOT EXISTS licensing_referralprogramsettings (
+ id BIGSERIAL PRIMARY KEY, referrer_bonus_enabled BOOLEAN NOT NULL DEFAULT FALSE, updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+COMMIT;
