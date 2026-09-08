@@ -1,0 +1,35 @@
+/* SubjectFolderUpload — sits beside the existing FileUploadButton in the
+   file manager toolbar (reuses the shared .sf-btn styles; only the root
+   wrapper + feedback pill are new). */
+
+.sfu-root {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sfu-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sfu-feedback {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sfu-feedback--error {
+  background-color: #fdeceb;
+  color: #b42318;
+}
+
+.sfu-feedback--warning {
+  background-color: #fef7e8;
+  color: #a15c07;
+}

@@ -1,0 +1,426 @@
+/* Signature Requests workspace — matches the audit-logs page shell
+   (admin-page / tnxt-compact / ctms-table) with its own status pills,
+   signer chips and modal styles. */
+
+.signature-requests-page .sigreq-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 6px;
+  background: var(--success-bg, #e8f7ee);
+  border: 1px solid var(--success-border, #b7e4c7);
+  color: var(--success-text, #1e7e45);
+  font-size: 0.85rem;
+}
+
+.signature-requests-page .sigreq-notice button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: inherit;
+  line-height: 1;
+}
+
+.sigreq-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.sigreq-tabs {
+  display: flex;
+  gap: 0.25rem;
+  background: var(--surface-2, #f1f3f7);
+  border-radius: 8px;
+  padding: 0.25rem;
+}
+
+.sigreq-tab {
+  border: none;
+  background: transparent;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary, #5a6472);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sigreq-tab:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.sigreq-tab.active {
+  background: var(--primary, #2563eb);
+  color: #fff;
+}
+
+.sigreq-tab-count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  padding: 0.05rem 0.45rem;
+}
+
+.sigreq-tab.active .sigreq-tab-count {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.sigreq-new-btn {
+  border: none;
+  background: var(--primary, #2563eb);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sigreq-new-btn:hover {
+  filter: brightness(1.08);
+}
+
+/* --- status pills --- */
+
+.sigreq-status-pill {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.sigreq-status-pill.draft {
+  background: #eef1f6;
+  color: #4b5563;
+  border: 1px solid #d6dbe3;
+}
+
+.sigreq-status-pill.sent {
+  background: #fff7e6;
+  color: #9a6700;
+  border: 1px solid #f3d9a4;
+}
+
+.sigreq-status-pill.completed {
+  background: #e8f7ee;
+  color: #1e7e45;
+  border: 1px solid #b7e4c7;
+}
+
+/* --- signer chips --- */
+
+.sigreq-signer-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.sigreq-signer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.sigreq-signer-chip.pending {
+  background: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid #e2e5ea;
+}
+
+.sigreq-signer-chip.signed {
+  background: #e8f7ee;
+  color: #1e7e45;
+  border: 1px solid #b7e4c7;
+}
+
+.sigreq-muted {
+  color: var(--text-secondary, #8a93a3);
+  font-size: 0.8rem;
+}
+
+.sigreq-row-actions {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.sigreq-action-btn {
+  border: 1px solid #d6dbe3;
+  background: #fff;
+  color: var(--text-primary, #1f2937);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sigreq-action-btn:hover {
+  background: #f5f6f8;
+}
+
+.sigreq-action-btn.primary {
+  background: var(--primary, #2563eb);
+  border-color: var(--primary, #2563eb);
+  color: #fff;
+}
+
+/* --- modal --- */
+
+.sigreq-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.sigreq-modal {
+  background: #fff;
+  border-radius: 10px;
+  width: min(640px, 100%);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
+}
+
+.sigreq-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #eef0f4;
+}
+
+.sigreq-modal-header h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.sigreq-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: var(--text-secondary, #6b7280);
+  line-height: 1;
+}
+
+.sigreq-modal-body {
+  padding: 1.1rem 1.25rem;
+  overflow-y: auto;
+}
+
+.sigreq-form-group {
+  margin-bottom: 1rem;
+}
+
+.sigreq-form-group label,
+.sigreq-field-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: var(--text-primary, #1f2937);
+}
+
+.sigreq-input {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #d6dbe3;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  background: #fff;
+  color: var(--text-primary, #1f2937);
+}
+
+.sigreq-input:focus {
+  outline: none;
+  border-color: var(--primary, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.required {
+  color: #dc2626;
+}
+
+.sigreq-signer-list {
+  border: 1px solid #e2e5ea;
+  border-radius: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 0.25rem;
+}
+
+.sigreq-signer-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.sigreq-signer-option:hover {
+  background: #f5f6f8;
+}
+
+.sigreq-signer-option.selected {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.sigreq-signer-name {
+  font-weight: 600;
+  min-width: 160px;
+}
+
+.sigreq-signer-role {
+  color: var(--text-secondary, #6b7280);
+  font-size: 0.78rem;
+  min-width: 90px;
+}
+
+.sigreq-signer-email {
+  color: var(--text-secondary, #8a93a3);
+  font-size: 0.76rem;
+  margin-left: auto;
+}
+
+.sigreq-error-message {
+  color: #dc2626;
+  font-size: 0.82rem;
+}
+
+.sigreq-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.9rem 1.25rem;
+  border-top: 1px solid #eef0f4;
+}
+
+.sigreq-modal-footer button {
+  border: 1px solid #d6dbe3;
+  background: #fff;
+  color: var(--text-primary, #1f2937);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sigreq-modal-footer button:hover:not(:disabled) {
+  background: #f5f6f8;
+}
+
+.sigreq-modal-footer button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.sigreq-modal-footer .sigreq-save-btn {
+  background: #eef1f6;
+  border-color: #d6dbe3;
+}
+
+.sigreq-modal-footer .sigreq-send-btn,
+.sigreq-modal-footer .sigreq-sign-btn {
+  background: var(--primary, #2563eb);
+  border-color: var(--primary, #2563eb);
+  color: #fff;
+}
+
+.sigreq-modal-footer .sigreq-send-btn:hover:not(:disabled),
+.sigreq-modal-footer .sigreq-sign-btn:hover:not(:disabled) {
+  background: var(--primary, #2563eb);
+  filter: brightness(1.08);
+}
+
+/* --- detail --- */
+
+.sigreq-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.sigreq-detail-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary, #8a93a3);
+  margin-bottom: 0.2rem;
+}
+
+.sigreq-detail-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary, #1f2937);
+}
+
+.sigreq-detail-section h3 {
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem;
+}
+
+.sigreq-signer-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.sigreq-signer-table th,
+.sigreq-signer-table td {
+  text-align: left;
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid #eef0f4;
+  vertical-align: middle;
+}
+
+.sigreq-signer-table th {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary, #8a93a3);
+}
+
+.sigreq-you-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--primary, #2563eb);
+}
+
+.sigreq-detail-note {
+  margin-top: 0.6rem;
+  font-size: 0.76rem;
+  color: var(--text-secondary, #8a93a3);
+}

@@ -1,0 +1,234 @@
+/* Subject Profile panel + ConsentStatusBadge — scoped entirely under
+   .subject-profile-* / .subject-consent-badge so the shared stylesheet can
+   never leak into the rest of the Subject Explorer. */
+
+/* ------------------------- Consent status badge ------------------------- */
+
+.subject-consent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.subject-consent-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+.subject-consent-badge-attn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: currentColor;
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.subject-consent-badge--consented {
+  background-color: #e8f7ee;
+  border-color: #b7e4c8;
+  color: #1b7a43;
+}
+
+.subject-consent-badge--not_consented {
+  background-color: #f3f4f6;
+  border-color: #d7dbe0;
+  color: #4b5563;
+}
+
+.subject-consent-badge--reconsent_required {
+  background-color: #fdeceb;
+  border-color: #f5c2bd;
+  color: #b42318;
+}
+
+.subject-consent-badge--expiring_soon {
+  background-color: #fef7e8;
+  border-color: #f3d9a4;
+  color: #a15c07;
+}
+
+/* ----------------------------- Profile panel ---------------------------- */
+
+.subject-profile-panel {
+  background-color: #fff;
+  border: 1px solid #e3e8f0;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(26, 60, 110, 0.12);
+  width: 340px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.subject-profile-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid #eef1f6;
+}
+
+.subject-profile-title {
+  margin: 0;
+  color: #1a3c6e;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.subject-profile-id {
+  font-size: 0.75rem;
+  color: #777;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.subject-profile-close {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.subject-profile-close:hover {
+  background-color: #f3f4f6;
+  color: #1a3c6e;
+}
+
+.subject-profile-body {
+  padding: 14px 16px 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.subject-profile-fields {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 12px;
+}
+
+.subject-profile-field {
+  margin: 0;
+}
+
+.subject-profile-field-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #888;
+  margin-bottom: 2px;
+}
+
+.subject-profile-field-value {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1f2937;
+  word-break: break-word;
+}
+
+.subject-profile-section-title {
+  margin: 0 0 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #1a3c6e;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.subject-profile-source {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background-color: #eef4ff;
+  color: #2563eb;
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.subject-profile-empty {
+  margin: 0;
+  color: #888;
+  font-size: 0.8125rem;
+}
+
+.subject-profile-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.subject-profile-timeline-entry {
+  display: flex;
+  gap: 10px;
+  padding: 6px 0;
+  position: relative;
+}
+
+.subject-profile-timeline-entry:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 16px;
+  bottom: -4px;
+  width: 2px;
+  background-color: #e5e9f0;
+}
+
+.subject-profile-timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+  background-color: #9ca3af;
+}
+
+.subject-profile-timeline-dot--status_change {
+  background-color: #2563eb;
+}
+
+.subject-profile-timeline-dot--visit {
+  background-color: #1b7a43;
+}
+
+.subject-profile-timeline-dot--consent {
+  background-color: #a15c07;
+}
+
+.subject-profile-timeline-label {
+  font-size: 0.8125rem;
+  color: #1f2937;
+}
+
+.subject-profile-timeline-at {
+  font-size: 0.6875rem;
+  color: #999;
+}

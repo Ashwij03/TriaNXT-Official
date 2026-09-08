@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a74231f5.css",
+    "main.js": "/static/js/main.b7587717.js",
+    "static/js/239.95d2e9ff.chunk.js": "/static/js/239.95d2e9ff.chunk.js",
+    "static/js/977.5569f1b4.chunk.js": "/static/js/977.5569f1b4.chunk.js",
+    "static/js/455.428f3a4a.chunk.js": "/static/js/455.428f3a4a.chunk.js",
+    "static/media/tria-bg.png": "/static/media/tria-bg.8ab8c038006871f9289c.png",
+    "static/media/TriaNXT Logo - Minimalist Design with Globe (23).png": "/static/media/TriaNXT Logo - Minimalist Design with Globe (23).d8bd61a227ac6b008751.png",
+    "static/media/TriaNXT Logo - Minimalist Design with Globe (24).png": "/static/media/TriaNXT Logo - Minimalist Design with Globe (24).750e6521bc7b9e753689.png",
+    "index.html": "/index.html",
+    "main.a74231f5.css.map": "/static/css/main.a74231f5.css.map",
+    "main.b7587717.js.map": "/static/js/main.b7587717.js.map",
+    "239.95d2e9ff.chunk.js.map": "/static/js/239.95d2e9ff.chunk.js.map",
+    "977.5569f1b4.chunk.js.map": "/static/js/977.5569f1b4.chunk.js.map",
+    "455.428f3a4a.chunk.js.map": "/static/js/455.428f3a4a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a74231f5.css",
+    "static/js/main.b7587717.js"
+  ]
+}

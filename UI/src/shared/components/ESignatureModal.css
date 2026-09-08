@@ -1,0 +1,283 @@
+/* ESignatureModal — matches the overlay/card/button language of the other
+   shared modals (DeleteConfirmationModal.css, UploadDocumentModal.css). */
+
+.esign-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Above every existing modal surface in the app (the tallest is 9999), so
+     the signature step always renders on top of the dialog that spawned it. */
+  z-index: 100000;
+}
+
+.esign-modal {
+  background-color: #fff;
+  border-radius: var(--tnxt-space-sm, 8px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  max-width: 31.25rem;
+  width: 90%;
+  animation: esignSlideUp 0.3s ease-out;
+}
+
+@keyframes esignSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(var(--tnxt-space-xl, 24px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.esign-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--tnxt-space-2xl, 20px);
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.esign-header h2 {
+  margin: 0;
+  color: #1a3c6e;
+  font-size: var(--tnxt-space-xl, 18px);
+  font-weight: 600;
+}
+
+.esign-close {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: var(--tnxt-space-3xl, 28px);
+  height: var(--tnxt-space-3xl, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--tnxt-space-xs, 4px);
+  transition: background-color 0.2s;
+}
+
+.esign-close:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.esign-close:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.esign-body {
+  padding: var(--tnxt-space-2xl, 20px);
+}
+
+.esign-description {
+  margin: 0 0 var(--tnxt-space-2xl, 20px) 0;
+  color: #333;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.esign-warning {
+  margin: 0 0 var(--tnxt-space-xl, 16px) 0;
+  padding: var(--tnxt-space-md, 10px);
+  background-color: #fdecea;
+  border: 1px solid #f5c6cb;
+  border-radius: var(--tnxt-space-xs, 4px);
+  color: #b71c1c;
+  font-size: 0.875rem;
+}
+
+.esign-form-group {
+  margin-bottom: var(--tnxt-space-xl, 16px);
+}
+
+.esign-form-group label {
+  display: block;
+  margin-bottom: var(--tnxt-space-sm, 6px);
+  font-weight: 500;
+  color: #333;
+  font-size: var(--tnxt-font-size-base, 14px);
+}
+
+.required {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.esign-input {
+  width: 100%;
+  padding: 0.625rem var(--tnxt-space-md, 10px);
+  border: 1px solid #ccc;
+  border-radius: var(--tnxt-space-xs, 4px);
+  font-size: var(--tnxt-font-size-base, 14px);
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.esign-input:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.esign-input.error {
+  border-color: #d32f2f;
+}
+
+.esign-confirm-word {
+  color: #d32f2f;
+  letter-spacing: 0.04em;
+}
+
+/* Signature meaning picker (Task 3.3) — radio list styled like the rest of
+   the modal's form controls. */
+.esign-meaning-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.esign-meaning-fieldset legend {
+  font-weight: 500;
+  color: #333;
+  font-size: var(--tnxt-font-size-base, 14px);
+  margin-bottom: var(--tnxt-space-sm, 6px);
+}
+
+.esign-meaning-option {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tnxt-space-sm, 6px);
+  padding: var(--tnxt-space-sm, 6px) var(--tnxt-space-md, 10px);
+  border: 1px solid #e0e0e0;
+  border-radius: var(--tnxt-space-xs, 4px);
+  margin-bottom: var(--tnxt-space-sm, 6px);
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.esign-meaning-option:hover:not(:has(input:disabled)) {
+  border-color: #2196f3;
+}
+
+.esign-meaning-option.selected {
+  border-color: #2196f3;
+  background-color: #f0f7ff;
+}
+
+.esign-meaning-option input[type="radio"] {
+  margin-top: 3px;
+  accent-color: #1a3c6e;
+}
+
+.esign-meaning-label {
+  font-weight: 500;
+  color: #1a3c6e;
+  font-size: 0.875rem;
+  min-width: 6.5rem;
+}
+
+.esign-meaning-description {
+  color: #666;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.esign-stamp-block {
+  margin-bottom: var(--tnxt-space-xl, 16px);
+}
+
+.esign-stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--tnxt-space-sm, 6px);
+  padding: var(--tnxt-space-xl, 16px);
+  border: 1px dashed #b0bec5;
+  border-radius: var(--tnxt-space-xs, 4px);
+  background-color: #fafcff;
+}
+
+.esign-stamp-script {
+  font-family: "Segoe Script", "Bradley Hand", "Comic Sans MS", cursive;
+  font-size: 1.75rem;
+  color: #0d47a1;
+  line-height: 1.2;
+  word-break: break-word;
+  text-align: center;
+}
+
+.esign-stamp-meta {
+  font-size: 0.75rem;
+  color: #666;
+  font-family: inherit;
+}
+
+.esign-stamp-hint {
+  margin: var(--tnxt-space-sm, 6px) 0 0;
+  font-size: 0.75rem;
+  color: #777;
+  line-height: 1.4;
+}
+
+.esign-error-message {
+  display: block;
+  color: #d32f2f;
+  font-size: var(--tnxt-space-md, 12px);
+  margin-top: var(--tnxt-space-xs, 4px);
+}
+
+.esign-footer {
+  display: flex;
+  gap: var(--tnxt-space-md, 10px);
+  padding: var(--tnxt-space-lg, 14px) var(--tnxt-space-2xl, 20px);
+  border-top: 1px solid #e0e0e0;
+  justify-content: flex-end;
+}
+
+.esign-cancel-btn,
+.esign-sign-btn {
+  padding: 0.625rem var(--tnxt-space-xl, 18px);
+  border: none;
+  border-radius: var(--tnxt-space-xs, 4px);
+  font-size: var(--tnxt-font-size-base, 14px);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.esign-cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.esign-cancel-btn:hover:not(:disabled) {
+  background-color: #d0d0d0;
+}
+
+.esign-sign-btn {
+  background-color: #1a3c6e;
+  color: #fff;
+}
+
+.esign-sign-btn:hover:not(:disabled) {
+  background-color: #0d2f56;
+}
+
+.esign-sign-btn:disabled {
+  background-color: #b0bec5;
+  cursor: not-allowed;
+  opacity: 0.7;
+}

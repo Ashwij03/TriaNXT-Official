@@ -1,0 +1,69 @@
+# tria_engine/docker-compose.yml
+#
+# Local/CI compose stack for the TriaNXT CTMS backend:
+#   backend   — FastAPI app (Dockerfile), env from .env, port 8000
+#   postgres  — official postgres image; credentials mirror the DB_* env
+#               vars tria_engine/core/database.py / core/config.py expect
+#   redis     — optional (only used when REDIS_URL is set; core/cache.py
+#               falls back to the in-process TTL store when absent)
+#
+# Usage:
+#   docker compose up --build
+#   docker compose run --rm backend alembic upgrade head
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      # The compose Postgres below — overrides .env only when .env does not
+      # already provide DATABASE_URL (env_file values win over `environment`
+      # in Docker Compose, so a local .env pointing elsewhere is respected).
+      DATABASE_URL: postgresql+psycopg2://trianxt:trianxt@postgres:5432/trianxt_ctms
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_NAME: trianxt_ctms
+      DB_USER: trianxt
+      DB_PASSWORD: trianxt
+      REDIS_URL: redis://redis:6379/0
+      CORS_ALLOWED_ORIGINS: http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: trianxt_ctms
+      POSTGRES_USER: trianxt
+      POSTGRES_PASSWORD: trianxt
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U trianxt -d trianxt_ctms"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  postgres_data:

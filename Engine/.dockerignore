@@ -1,0 +1,54 @@
+# tria_engine/.dockerignore
+#
+# Backend image is backend code only: Python caches/artifacts, local DBs,
+# secrets, logs, and the duplicated frontend export are excluded.
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local / test databases
+*.sqlite3
+*.db
+
+# Secrets & env (build-time env comes from docker-compose env_file)
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+
+# Frontend duplicate/artifacts (backend artifact is backend-only)
+src/
+node_modules/
+dist/
+build/
+public/
+
+# VCS / IDE
+.git/
+.gitignore
+.settings/
+.vscode/
+.idea/
+
+# Virtualenvs & tooling
+.venv/
+venv/
+.python-version
+
+# Media / static served at runtime (mounted or uploaded, not baked in)
+media/
+staticfiles/
+
+# Misc
+scripts/
+sql/
+tools/
+_*.sqlite3

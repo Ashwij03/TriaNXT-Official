@@ -1,0 +1,120 @@
+/* Unauthorized (403) page — matches the card language of the shared auth
+   pages (Login.css / AccessRequestForm) without importing them. */
+
+.unauthorized-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: #f5f7fb;
+}
+
+.unauthorized-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(26, 60, 110, 0.12);
+  max-width: 30rem;
+  width: 100%;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.unauthorized-code {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #1a3c6e;
+  line-height: 1;
+  opacity: 0.18;
+  letter-spacing: 0.04em;
+}
+
+.unauthorized-title {
+  margin: 8px 0 4px;
+  color: #1a3c6e;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.unauthorized-subtitle {
+  margin: 0 0 16px;
+  color: #555;
+  font-size: 0.9375rem;
+}
+
+.unauthorized-path {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 16px;
+  padding: 12px;
+  background-color: #f7f9fc;
+  border: 1px solid #e3e8f0;
+  border-radius: 8px;
+}
+
+.unauthorized-path-label {
+  font-size: 0.75rem;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.unauthorized-path-value {
+  font-size: 0.8125rem;
+  color: #1a3c6e;
+  word-break: break-all;
+}
+
+.unauthorized-user {
+  margin: 0 0 20px;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.unauthorized-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.unauthorized-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.unauthorized-btn-primary {
+  background-color: #1a3c6e;
+  color: #fff;
+  border: 1px solid #1a3c6e;
+}
+
+.unauthorized-btn-primary:hover {
+  background-color: #0d2f56;
+}
+
+.unauthorized-btn-secondary {
+  background-color: #fff;
+  color: #1a3c6e;
+  border: 1px solid #1a3c6e;
+}
+
+.unauthorized-btn-secondary:hover {
+  background-color: #f0f7ff;
+}
+
+.unauthorized-help {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #888;
+  line-height: 1.5;
+}
